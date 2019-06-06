@@ -9,9 +9,11 @@
 
         <!-- 六宫格 -->
         <ul class="mui-table-view mui-grid-view mui-grid-9">
-            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3"><a href="#">
-                <img src="../../images/menu1.png" alt="">
-                <div class="mui-media-body">新闻资讯</div></a>
+            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
+                <router-link to="/home/newslist">
+                    <img src="../../images/menu1.png" alt="">
+                    <div class="mui-media-body">新闻资讯</div>
+                </router-link>
             </li>
             <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3"><a href="#">
                 <img src="../../images/menu2.png" alt="">
@@ -50,7 +52,7 @@ export default {
     },
     methods: {
         getLunbotu() {
-            this.$http.get("http://vue.studyit.io/api/getlunbo").then(result => {
+            this.$http.jsonp("http://192.168.1.113:8888/vue-cms/getAll").then(result => {
                 //console.log(result.body);
                 if(result.body.status === 0) {
                     this.lunbotuList = result.body.message;
@@ -59,7 +61,7 @@ export default {
                 }
             });
             //百度的解决办法，但是还是不行
-            // this.$http.jsonp("http://vue.studyit.io/api/getlunbo", {}, {
+            // this.$http.jsonp("http://192.168.1.113:8888/vue-cms/getAll", {}, {
             //     headers: {},
             //     emulateJSON: true
             // }).then((result) => {
