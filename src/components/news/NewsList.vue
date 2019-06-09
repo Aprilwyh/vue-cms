@@ -29,13 +29,21 @@ export default {
     },
     methods: {
         getNewsList() {
-            this.$http.get('http://192.168.1.113:8888/vue-cms/getAll').then(result => {
-                if(result.body.status === 0) {
-                    this.newsList = result.body.message;
-                }else {
-                    Toast("获取新闻列表失败");
-                }
+            this.$jsonp("http://192.168.1.113:8888/vue-cms/getJsonp/getnewslist", {}).then((result) => {
+                //alert(result.message);
+                this.newsList = result.message;
+                console.log(result.message);		                          
+            }).catch(err=>{
+                console.log(err);
             })
+
+            // this.$http.get('http://192.168.1.113:8888/vue-cms/getAll').then(result => {
+            //     if(result.body.status === 0) {
+            //         this.newsList = result.body.message;
+            //     }else {
+            //         Toast("获取新闻列表失败");
+            //     }
+            // })
         }
     }
 }
@@ -51,5 +59,3 @@ export default {
     justify-content: space-between;
 }
 </style>
-
-

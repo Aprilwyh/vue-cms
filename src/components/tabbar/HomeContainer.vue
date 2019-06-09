@@ -3,7 +3,7 @@
         <!-- 轮播图区域 -->
         <mt-swipe :auto="4000">
         <mt-swipe-item v-for="item in lunbotuList" :key="item.url">
-            <img src="item.img" alt="">
+            <img :src="item.img" alt="">
         </mt-swipe-item>
         </mt-swipe>
 
@@ -15,9 +15,11 @@
                     <div class="mui-media-body">新闻资讯</div>
                 </router-link>
             </li>
-            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3"><a href="#">
-                <img src="../../images/menu2.png" alt="">
-                <div class="mui-media-body">图片分享</div></a>
+            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
+                <router-link to="/home/photolist">
+                    <img src="../../images/menu2.png" alt="">
+                    <div class="mui-media-body">图片分享</div>
+                </router-link>
             </li>
             <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3"><a href="#">
                 <img src="../../images/menu3.png" alt="">
@@ -52,21 +54,22 @@ export default {
     },
     methods: {
         getLunbotu() {
-            this.$http.jsonp("http://192.168.1.113:8888/vue-cms/getAll").then(result => {
-                //console.log(result.body);
-                if(result.body.status === 0) {
-                    this.lunbotuList = result.body.message;
-                }else {
-                    Toast("加载轮播图失败");
-                }
-            });
-            //百度的解决办法，但是还是不行
-            // this.$http.jsonp("http://192.168.1.113:8888/vue-cms/getAll", {}, {
-            //     headers: {},
-            //     emulateJSON: true
-            // }).then((result) => {
-            //     console.log(result.body);		                          
+            // this.$http.jsonp("http://192.168.1.113:8888/vue-cms/getAll").then(result => {
+            //     //console.log(result.body);
+            //     if(result.body.status === 0) {
+            //         this.lunbotuList = result.body.message;
+            //     }else {
+            //         Toast("加载轮播图失败");
+            //     }
             // });
+
+            this.$jsonp("getlunbo", {}).then((result) => {
+                //alert(result.message);
+                this.lunbotuList = result.message;               
+                console.log(result.message);		                          
+            }).catch(err=>{
+                Toast("加载轮播图失败");
+            })
         }
     }
 }
@@ -75,7 +78,11 @@ export default {
 .mint-swipe {
     height: 200px;
 }
-.mint-swipe-item:nth-child(1) {
+.mint-swipe-item img {
+    width: 100%;
+    height: 200px;
+}
+/* .mint-swipe-item:nth-child(1) {
     background-color: pink;
 }
 .mint-swipe-item:nth-child(2) {
@@ -83,7 +90,7 @@ export default {
 }
 .mint-swipe-item:nth-child(3) {
     background-color: blueviolet;
-}
+} */
 .mui-grid-view.mui-grid-9 {
     background-color: #fff;
     border: none;
