@@ -13,6 +13,8 @@ Vue.use(VueResource)
 Vue.http.options.emulateJSON = true;
 Vue.http.options.root = 'http://192.168.1.113:8888/vue-cms/getJsonp';
 
+import VuePreview from 'vue-preview'
+Vue.use(VuePreview)
 
 import moment from 'moment'
 //定义全局的过滤器
